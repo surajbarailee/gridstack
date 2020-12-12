@@ -1,0 +1,220 @@
+<script src="node_modules/gridstack/dist/gridstack-h5.js"></script>
+<script src="node_modules/chart.js/dist/Chart.js"></script>
+<link href="node_modules/gridstack/dist/gridstack.min.css" rel="stylesheet"/>
+<style type="text/css">
+  .grid-stack { background: blue ;}
+  .grid-stack-item-content { background-color: white; }
+  .container {margin:0 auto;border:1px solid black; overflow:hidden}
+</style>
+
+<body>
+<div class='container' style="display:block">
+
+    <div class="grid-stack">
+                <div class="grid-stack-item" gs-x="1" gs-y="0" gs-w="5" gs-h="3">
+                    <div class="grid-stack-item-content"> 
+                            <canvas id='myBarChart'></canvas>
+                    </div>
+                </div>
+                <div class="grid-stack-item" gs-x="6" gs-y="0" gs-w="5" gs-h="3">
+                    <div class="grid-stack-item-content"> 
+                        <canvas id='mySpiderChart'></canvas>
+                    </div>
+                </div>
+                <div class="grid-stack-item" gs-x="1" gs-y="3" gs-w="5" gs-h="3">
+                    <div class="grid-stack-item-content"> 
+                        <canvas id='myScatterPlot'></canvas>
+                    </div>
+                </div>
+                <div class="grid-stack-item" gs-x="6" gs-y="3" gs-w="5" gs-h="3">
+                    <div class="grid-stack-item-content"> 
+                        <canvas id='myLineChart'></canvas>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+        
+        
+</body>
+<script type="text/javascript">
+
+var grid=GridStack.init({
+  cellHeight:'110px',
+  disableResize:true,
+  float:true,
+  margin:5,
+  dragOut:false,
+});
+
+
+
+grid.on('dragstop',function(){
+    grid.compact();
+    console.log('asd2');
+})
+
+grid.on('dropped',function(){
+    grid.compact();
+    console.log('asd3');
+})
+let myBarChart=  document.getElementById('myBarChart').getContext('2d');
+let barChart= new Chart(myBarChart,{
+    type:'bar',
+    data:{
+        labels:['a','b','c','d','e'],
+        datasets:[{
+            label:'ACNE',
+            data:[100,200,500,150,190],
+            backgroundColor:'#ED008C'
+        },
+        {
+            label:'BCBSTWHITE',
+            data:[500,700,100,200,790],
+            backgroundColor:'#2E006B'
+        }],
+        
+    },
+    options:{
+        title:{
+            display:true,
+            text:'Total no. of NPI (No problem Index)'
+        },
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+    }
+});
+let mySpiderChart=  document.getElementById('mySpiderChart').getContext('2d');
+let spiderChart= new Chart(mySpiderChart,{
+    type:'radar',
+    data:{
+        labels:['a','b','c','d','e'],
+        datasets:[{
+            label:'ACNE ',
+            data:[4.1,2,5,1.5,3.2],
+            borderColor:'rgb(237,0,140)',
+            backgroundColor:"rgba(237,0,140,0.1)",
+            
+        },{
+            label:'BCBSTWHITE',
+            data:[1,5,2.5,5,4],
+            borderColor:'rgb(46,0,107',
+            backgroundColor:"rgba(46,0,107,0.1)"
+            
+        }],
+        
+    },
+    options:{
+        title:{
+            display:true,
+            text:'Overall Value Score on diffent matches'
+        },
+        scale: {
+            ticks: {
+                beginAtZero: true
+            }
+        
+    }
+    }
+});
+
+
+let myScatterPlot=  document.getElementById('myScatterPlot').getContext('2d');
+let ScatterPlot= new Chart(myScatterPlot,{
+     type: 'scatter',
+    data: {
+        datasets: [{
+            label: 'ACNE',
+            data: [{
+                x: -10,
+                y: 0
+            }, {
+                x: 1,
+                y: 9
+            }, {
+                x: 7,
+                y: 3
+            },
+            {
+                x: 10,
+                y: 2
+            },
+            {
+                x: -5,
+                y: 5
+            }],
+            backgroundColor:'#ED008C',
+            pointRadius:5
+        },
+        {
+            label: 'BCBSTWHITE',
+            data: [{
+                x: -7,
+                y: 2
+            }, {
+                x: 9,
+                y: 1
+            }, {
+                x: -7,
+                y: 4
+            },
+            {
+                x: 8,
+                y: 3
+            },
+            {
+                x: 9,
+                y: 5
+            }],
+            backgroundColor:'#2E006B',
+            pointRadius:5
+        }]
+    },
+    options: {
+         title:{
+            display:true,
+            text:'Scatter Plot  of random values'
+        },
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }]
+        }
+    }
+});
+
+let myLineChart=  document.getElementById('myLineChart').getContext('2d');
+let lineChart= new Chart(myLineChart,{
+    type:'line',
+    data:{
+        labels:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'],
+        datasets:[{
+            label:'ACNE ',
+            data:[70,40,90,60,100,70,45,12,78,35,68,95,10,78,84,68],
+            borderColor:'rgb(237,0,140)',
+            backgroundColor:"rgba(237,0,140,0.1)",
+            lineTension:0
+            
+        },{
+            label:'BCBSTWHITE',
+            data:[30,58,24,68,39,60,100,70,78,35,40,90,60,2,78,35],
+            borderColor:'rgb(46,0,107',
+            backgroundColor:"rgba(46,0,107,0.1)",
+            lineTension:0
+        }],
+        
+    },
+    options:{
+        title:{
+            display:true,
+            text:'How the chart is going'
+        }
+    }
+});
+</script>
